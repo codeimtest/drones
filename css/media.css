@@ -34,6 +34,16 @@
 		font-size: 24px;
 		line-height: 26px;
 	}
+	h3{
+		font-size: 20px;
+		line-height: 30px;
+	}
+	.success-title{
+		font-size: 20px;
+	}
+	.success-text{
+		margin: 0 0 32px 0;
+	}
 	.first-page{
 		padding:100px 0 32px 0;
 	}
@@ -146,12 +156,50 @@
 	.h-widgets ul li.has-child > a::after{
 		content: none;
 	}
+	.popup-wrap{
+		flex-flow: column;
+	}
+	.popup .contact-form{
+		padding: 20px;
+	}
+	.form-contact{
+		width: 100%;
+		padding: 20px;
+	}
+	.btn-close{
+		top: 20px;
+		right: 20px;
+	}
+	.form-bottom{
+		flex-flow: column;
+	}
+	.policy-form{
+		width: 100%;
+		margin-top: 0;
+		margin-bottom: 20px;
+	}
+	.service-card{
+		display: none;
+	}
+	.service-form{
+		width: 100%;
+		padding: 0 16px 16px 16px;
+	}
+	form h4{
+		margin-top: 34px;
+	}
+	.total-price-value{
+		font-size: 20px;
+	}
 }
 
 /* sm <= Medium (md) */
 @media (max-width : 768px) {
 	.main-btn{
 		width: 100%;
+	}
+	.next-form,.previous-form{
+		max-width: 154px;
 	}
 }
 

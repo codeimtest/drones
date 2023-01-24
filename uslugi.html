@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<!-- <base href="/"> -->
+
+	<title>Alldrones</title>
+	<meta name="description" content="Alldrones">
+
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="icon" href="images/favicon.png">
+	<!-- <meta property="og:image" content="images/preview.jpg"> -->
+
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-reboot.min.css">
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="libs/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="libs/swiper/swiper-bundle.min.css">
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/media.css">
+	<script src="libs/swiper/swiper-bundle.min.js"></script>
+	<script src="libs/jquery/jquery-3.6.0.min.js" defer></script>
+
+	<script src="js/common.js" defer></script>
+
+</head>
+
+<body>
+
+<div class="service" >
+	<div class="service-card" style="background-image: url('images/service-bg.jpg');">
+		<a href="/" class="logo">
+			<img src="images/logo-white.svg" alt="">
+		</a>
+		<h3 class="white-text">Создание договора на сервисные работы</h3>
+	</div>
+	<div class="service-form">
+		<div class="d-lg-none d-block">
+			<a href="/" class="logo">
+				<img src="images/logo.svg" alt="">
+			</a>
+		</div>
+		<form action="" id="service-form">
+			<fieldset>
+				<h3>Устройство и услуги</h3>
+				<div class="progress-line"></div>
+				<h4>Выберите устройство</h4>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="brand">Бренд</label>
+						<select name="" id="brand">
+							<option value="Mavic">Mavic</option>
+							<option value="Drone Brand 1">Drone Brand 1</option>
+							<option value="Drone Brand 2">Drone Brand 2</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="brand">Модель</label>
+						<select name="" id="brand">
+							<option value="Model 9000">Model 9000</option>
+							<option value="Model 10000">Model 10000</option>
+							<option value="Model 3000">Model 3000</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="services">Выберите услуги</label>
+						<div class="custom-input-icon">
+							<input type="text" id="services" class="special-search" placeholder="Нарпимер: замена лопастей">
+						</div>
+					</div>
+				</div>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="choisen-service">Выбранные услуги</label>
+						<ul class="choisen-list">
+							<li><span>Диагностика</span><button class="select-choice-remove"></button></li>
+							<li><span>Тестовый полет</span><button class="select-choice-remove"></button></li>
+						</ul>
+					</div>
+				</div>
+				<h4>Дополнительная информация</h4>
+				<div class="upload-container">
+					<label for="file_upload">
+						<p>Перетащите файл сюда</p>
+						Выберите на вашем устройстве
+					</label>
+					<input type="file" id="file_upload" multiple/>
+					<div></div>
+				</div>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="comment">Дополнительный комментарий (необязательно)</label>
+						<textarea name="" id="comment" cols="30" rows="5"></textarea>
+					</div>
+				</div>
+				<h4>Ваши контакты</h4>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="phone">Телефон</label>
+						<input type="text" id="phone">
+					</div>
+				</div>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="mail">Почта</label>
+						<input type="email" id="mail">
+					</div>
+				</div>
+				<div class="form-float prev-next-form">
+					<div class="total-price-service">
+						К оплате:
+						<div class="total-price-value">100 000<span> руб.</span></div>
+					</div>
+					<button class="main-btn blue-btn next-form action-button" type="button">Продолжить</button>
+				</div>
+			</fieldset>
+			<fieldset>
+				<h3>Данные клиента</h3>
+				<div class="progress-line"></div>
+				<div class="form-float form-tabs">
+					<div class="form-group">
+						<label for="mail">Тип клиента</label>
+						<ul class="tab-group">
+							<li class="tab active"><a href="#individual">Физлицо</a></li>
+							<li class="tab"><a href="#legal">Юрлицо</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div id="individual">
+						<h4>Данные физлица</h4>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="secondname">Фамилия</label>
+								<input type="text" id="secondname">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="firstname">Имя</label>
+								<input type="text" id="firstname">
+							</div>
+							<div class="form-group">
+								<label for="otch">Отчество</label>
+								<input type="text" id="otch">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-radio">
+								<label for="">Пол:</label>
+								<div class="radio">
+									<input type="radio" name="sex" id="male" value="Мужской">
+									<label for="male">Мужской</label>
+								</div>
+								<div class="radio">
+									<input type="radio" name="sex" id="female" value="Женский">
+									<label for="female">Женский</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="secondname">Инн</label>
+								<input type="text" id="inn">
+							</div>
+						</div>
+						<div class="form-float special-form-float">
+							<label for="secondname">Паспортные данные</label>
+							<div class="form-triple">
+								<div class="form-group">
+									<input type="text" id="series" placeholder="Серия">
+								</div>
+								<div class="form-group">
+									<input type="text" id="number" placeholder="Номер">
+								</div>
+								<div class="form-group">
+									<input type="date" name="calendar">
+								</div>
+							</div>
+						</div>
+						<h4>Адрес</h4>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="city">Населенный пункт</label>
+								<input type="text" id="city">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="index">Индекс</label>
+								<input type="text" id="index">
+							</div>
+							<div class="form-group">
+								<label for="street">Улица</label>
+								<input type="text" id="street">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="house">Дом</label>
+								<input type="text" id="house">
+							</div>
+							<div class="form-group">
+								<label for="room">Квартира</label>
+								<input type="text" id="room">
+							</div>
+						</div>
+					</div>
+					<div id="legal">
+						<h4>Данные юрлица</h4>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="legal-inn">ИНН</label>
+								<input type="text" id="legal-inn">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<input type="checkbox" name="checkbox-checked" checked />
+								Заполнить автоматически, используя реестр nalog.ru
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="type">Дом</label>
+								<select name="" id="type">
+									<option value="Ип" selected>Ип</option>
+									<option value="ООО">ООО</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="ogrn">ОГРН</label>
+								<input type="text" id="ogrn">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="customer">Наименование заказчика</label>
+								<input type="text" id="customer">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="site">Сайт компании</label>
+								<input type="text" id="site">
+							</div>
+						</div>
+						<h4>Банковские реквизиты</h4>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="bik">БИК</label>
+								<input type="text" id="bik">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="company-name">Название</label>
+								<input type="text" id="company-name">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="ras-schet">Р/c</label>
+								<input type="text" id="ras-schet">
+							</div>
+							<div class="form-group">
+								<label for="kor-schet">Кор счет</label>
+								<input type="text" id="kor-schet">
+							</div>
+						</div>
+						<h4>Представитель заказчика по договору</h4>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="company-family">Фамилия</label>
+								<input type="text" id="company-family">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="company-firstname">Имя</label>
+								<input type="text" id="company-firstname">
+							</div>
+							<div class="form-group">
+								<label for="company-otchestvo">Отчество</label>
+								<input type="text" id="company-otchestvo">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-radio">
+								<label for="">Пол:</label>
+								<div class="radio">
+									<input type="radio" name="company-sex" id="company-male" value="Мужской">
+									<label for="company-male">Мужской</label>
+								</div>
+								<div class="radio">
+									<input type="radio" name="company-sex" id="company-female" value="Женский">
+									<label for="company-female">Женский</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="company-stage">Должность</label>
+								<input type="text" id="company-stage">
+							</div>
+						</div>
+						<div class="form-float">
+							<div class="form-group">
+								<label for="podpis">Основание для подписи документа</label>
+								<select name="" id="podpis">
+									<option value="Устав" selected>Устав</option>
+									<option value="Доверенность">Доверенность</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-float prev-next-form">
+					<button class="main-btn previous-form action-button" type="button">Вернуться</button>
+					<button class="main-btn blue-btn next-form action-button" type="button">Продолжить</button>
+				</div>
+			</fieldset>
+			<fieldset>
+				<h3>Проверьте данные для договора</h3>
+				<p>Проверьте правильность заполненых данных для состовления договора и внесите изменения, если потребуется.</p>
+				<div class="progress-line"></div>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="check-fio">Должность и ФИО в родительном падеже</label>
+						<input type="text" id="check-fio" placeholder="директора Султанова Ленардо Ильдаровича">
+					</div>
+				</div>
+				<div class="form-float">
+					<div class="form-group">
+						<label for="check-inic">Инициалы в иминительном падеже</label>
+						<input type="text" id="check-inic" placeholder="Л.И. Султанов">
+					</div>
+				</div>
+				<div class="form-float prev-next-form">
+					<button class="main-btn previous-form action-button" type="button">Вернуться</button>
+					<button class="main-btn blue-btn next-form action-button" type="button">Продолжить</button>
+					<!-- Кнопка выше для отправки формы(но в верстке просто перейдет на след шаг - "Заявка успешно отправлена") -->
+				</div>
+			</fieldset>
+			<fieldset class="text-center">
+				<img src="images/success-form.png" alt="">
+				<h3 class="success-title">Проверьте свою почту</h3>
+				<div class="success-text">Мы отправили вам договор на оплату. Не забудьте проверить спам</div>
+				<a href="/" class="main-btn">Вернуться на сайт</a>
+			</fieldset>
+		</form>
+	</div>
+</div>
+</body>
+
+</html>

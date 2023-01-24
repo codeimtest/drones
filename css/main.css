@@ -23,12 +23,14 @@
 
 /* GENERAL CSS SETTINGS */
 
-::placeholder { color: #666; }
+::placeholder { color: rgba(15, 23, 42, 0.6); }
 ::selection { background-color: var(--accent); color: #fff; }
 input, textarea { outline: none; }
 input:focus:required:invalid, textarea:focus:required:invalid { border-color: red; }
 input:required:valid, textarea:required:valid { border-color: green; }
-
+body.lock{
+	overflow: hidden;
+}
 body {
 	font-family: var(--userfont);
 	font-size: var(--regular-text);
@@ -441,4 +443,531 @@ border-radius: 3px;
 				}			
 .overflow-carousel{
 	overflow: hidden;
-}				
+}		
+.popup.active{
+	visibility: visible;
+	opacity: 1;
+}		
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	width: 100%;
+	height: 100%;
+	outline: 0;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.2s ease all;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background: rgba(17, 17, 17, 0.2);
+	z-index: 5;
+}
+.popup .popup-dialog {
+	min-height: calc(100% - 10rem);
+	max-width: 1200px;
+	margin: 2rem auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: auto;
+	position: relative;
+	box-shadow: 0px 10px 40px rgba(15, 23, 42, 0.16);
+	}
+
+.popup h3{
+	margin-bottom: 32px;
+}
+.popup-wrap {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	border-radius: 20px;
+	overflow: hidden;
+	background: #fff;
+}
+.popup .contact-form{
+	padding: 40px;
+}	
+.contact-widget + .contact-widget{
+	margin-top: 32px;
+}
+.contact-widget .contact-label{
+	font-size: 12px;
+	margin-bottom: 4px;
+}
+.contact-widget .contact-item{
+	font-size: 20px;
+	color: #111;
+	text-decoration: none;
+}
+.btn-close{
+	position: absolute;
+	right: 45px;
+	top: 47px;
+	transition: 0.2s ease all;
+	cursor: pointer;
+	z-index: 2;
+}
+.btn-close:hover{
+	opacity: 0.8;
+}
+.btn-close i{
+	font-size: 25px;
+	color: rgba(15, 23, 42, 0.8);
+}
+/*other*/
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  /* Remove most all native input styles */
+  appearance: none;
+  /* For iOS < 15 */
+  /* Not removed via appearance */
+  margin: 0;
+	border: 1px solid #DDE1E6 !important;
+	float: left;
+	margin-right: 13px;
+	cursor: pointer;
+  font: inherit;
+  width: 18px;
+  height: 18px;
+  outline: none  !important;
+  border-radius: 2px;
+  transform: translateY(-0.075em);
+	border: none;
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  /* Windows High Contrast Mode */
+  background-color: #fff;
+}
+input[type="checkbox"]:checked{
+	background: var(--accent);
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
+input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+.form-group + .form-group{
+	margin-top: 24px;
+}
+.form-contact{
+	background: #F6F7F8;
+	width: 44%;
+	padding: 134px 40px 0 40px;
+}
+.form-float{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+form select{
+	border: 1px solid #DDE1E6;
+	border-radius: 4px;
+	padding: 10px 12px;
+	width: 100%;
+	outline: none;
+}
+form{
+	position: relative;
+}
+form label{
+	font-weight: 500;
+	width: 100%;
+	color: #111;
+	margin-bottom: 8px;
+}
+form input,form textarea{
+	width: 100%;
+	background: #FFFFFF;
+	border: 1px solid #DDE1E6;
+	border-radius: 4px;
+	padding: 10px 12px;
+}
+form h4{
+	margin-bottom: 24px;
+	margin-top: 36px;
+}
+.policy-form{
+	display: flex;
+	width: 55%;
+}
+.policy-form input{
+	margin-right: 13px;
+}
+.policy-form p{
+	margin-bottom: 0;
+}
+.policy-form a{
+	color: var(--accent);
+	text-decoration: none;
+}
+.form-bottom{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 34px;
+}
+
+/*services pages*/
+.service{
+	height: 100%;
+	display: flex;
+
+}
+.service-card{
+	background-size: cover;
+	height:100vh;
+	width: 40%;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+	padding: 40px 68px 60px 60px;
+}
+.service-form{
+	padding: 64px 148px;
+	width: 82%;
+}
+.form-float .form-group + .form-group{
+	margin-left: 24px;
+	margin-top: 0;
+}
+.form-float .form-group{
+	width: 100%;
+}
+
+.form-float + .form-float{
+	margin-top: 24px;
+}
+.special-search{
+	padding-left: 42px;
+	
+}
+.custom-input-icon{
+	position: relative;
+}
+.custom-input-icon::before{
+	content:'\f002';
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 900;
+	position: absolute;
+	left: 14px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	color: rgba(15, 23, 42, 0.6);
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+}
+.choisen-list{
+	display: flex;
+	list-style: none;
+	align-items: center;
+	padding-left: 0;
+	margin-bottom: 0;
+	flex-flow: wrap;
+}
+.choisen-list li{
+	background: #DDE1E6;
+border-radius: 100px;
+padding: 7px 10px 7px 12px;
+text-align: center;
+font-size: 12px;
+margin-right: 4px;
+padding-right: 30px;
+position: relative;
+}
+.choisen-list li{
+	margin-bottom: 4px;
+}
+.choisen-list li button{
+	border: none;
+	outline: none;
+	background: transparent;
+	position: absolute;
+	right: 12px;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	padding: 0;
+}
+.choisen-list li button::after{
+	content: '\f00d';
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 900;
+	color: rgba(15, 23, 42, 0.6);
+}
+.upload-container{
+	position:relative;
+	border:1px dashed #DDE1E6;
+	background: #fff;
+	outline-offset:-10px;
+	text-align:center !important;
+	width:100%;
+	transition: 0.2s ease all;
+	background: transparent;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 24px 0;
+	padding: 26px 0;
+}
+.upload-container input{
+	opacity: 0;
+	position: absolute;
+	top: 0;
+  left: 0;
+	width: 100%;
+  height: 100%;
+  display: block;
+}
+.upload-container label{
+	transition: 0.2s ease all;
+	color: var(--accent);
+	text-align: center;
+	cursor: pointer;
+	line-height: 20px;
+	position: relative;
+}
+.upload-container:hover{
+	opacity: 0.4;
+}
+.upload-container p{
+	text-align: center;
+	color: rgba(15, 23, 42, 0.6);
+	margin-bottom: 4px;
+}
+#file_upload{
+	cursor: pointer;
+}
+.upload-container div{
+	opacity: 0.8;
+}
+.total-price-service{
+	font-size: 12px;
+	color: rgba(15, 23, 42, 0.7);
+}
+.total-price-value{
+	font-size: 24px;
+	line-height: 32px;
+	font-weight: 500;
+	color: var(--text);
+}
+.prev-next-form{
+	margin-top: 36px !important;
+}
+.progress-line{
+	width: 100%;
+	height: 4px;
+	background: linear-gradient(to right,var(--accent),var(--accent));
+	background-color: #ccc;
+	background-size: 33.3%;
+	background-repeat: repeat-y;
+	background-position: 0 0;
+	margin-top: 18px;
+}
+.next-form{
+	padding-right: 44px;
+	position: relative;
+}
+
+.next-form::after{
+	content: '\f105';
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 900;
+	position: absolute;
+	right: 24px;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
+.previous-form{
+	padding-left: 44px;
+	position: relative;
+}
+.previous-form::before{
+	content: '\f104';
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 900;
+	position: absolute;
+	left: 24px;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
+.service-form fieldset:not(:first-of-type) {
+	display: none;
+}
+.service-form fieldset:nth-child(2) .progress-line{
+	background-size: 66.6%;
+}
+.service-form fieldset:nth-child(3) .progress-line{
+	background-size: 100%;
+	margin-bottom: 36px;
+}
+.tab-group{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	list-style: none;
+	padding-left: 0;
+	margin-bottom: 0;
+	padding: 2px;
+	background: #EBEDF0;
+}
+.tab-group li{
+	width: 100%;
+}
+.tab-group li.active{
+	background: #fff;
+}
+.tab-group li a{
+	text-decoration: none;
+	color: var(--text);
+	padding: 8px 0;
+	text-align: center;
+	display: block;
+}
+.tab-content > div:last-child {
+  display:none;
+}
+.form-tabs{
+	margin-top: 36px;
+}
+.form-radio label{
+	margin-bottom: 0;
+	margin-right: 25px;
+}
+.form-radio{
+	display: flex;
+}
+.radio{
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+.radio label{
+	font-weight: 400;
+	margin-left: 32px;
+	cursor: pointer;
+}
+input[type="radio"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: 0;
+	border: none;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	margin: auto;
+	cursor: pointer;
+}
+input[type="radio"]::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid #DDE1E6;
+	cursor: pointer;
+}
+input[type="radio"]:checked::before {
+	border: none;
+}
+input[type="radio"]:checked::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background-color: #fff;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	visibility: visible;
+	border: 4px solid var(--accent);
+}
+.form-triple .form-group + .form-group{
+	margin-left: 0;
+}
+.form-triple .form-group:nth-child(2) input{
+	border-radius: 0;
+	border-left: none;
+	border-right: none;
+}
+.form-triple .form-group:first-child input{
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.form-triple .form-group:last-child input{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.special-form-float{
+	display: flex;
+	flex-flow: column;
+}
+.form-triple{
+	display: flex;
+	flex-flow: row;
+	width: 100%;
+}
+fieldset p{
+	font-size: 16px;
+}
+.success-title{
+	font-size: 32px;
+	margin-bottom: 24px;
+}
+.success-text{
+	font-size: 16px;
+	color: rgba(15, 23, 42, 0.8);
+	margin: 0 20px 32px 20px;
+}
+.service-form .logo{
+	padding: 16px 0 32px 0;
+	display: block;
+}
+/*services pages end*/

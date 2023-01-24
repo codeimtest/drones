@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<!-- <base href="/"> -->
+
+	<title>Alldrones</title>
+	<meta name="description" content="Alldrones">
+
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="icon" href="images/favicon.png">
+	<!-- <meta property="og:image" content="images/preview.jpg"> -->
+
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-reboot.min.css">
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="libs/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="libs/swiper/swiper-bundle.min.css">
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/media.css">
+	<script src="libs/swiper/swiper-bundle.min.js"></script>
+	<script src="libs/jquery/jquery-3.6.0.min.js" defer></script>
+
+	<script src="js/common.js" defer></script>
+
+</head>
+
+<body>
+<div class="service">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="service-wrap">
+					<div class="service-bg" style="background-image: ('images/service.bg');background-repeat: no-repeat;">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>
