@@ -192,3 +192,10 @@ $('.tab a').on('click', function (e) {
   $(target).fadeIn(600);
   
 });
+
+$('.action-button').click(function () {
+	$('body,html').animate({
+			scrollTop: 0
+	});
+	return false;
+});
