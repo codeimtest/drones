@@ -2,7 +2,9 @@
 
 /* xl <= Extra extra large (xxl) */
 @media (max-width : 1400px) {
-
+	.video-wrap{
+		height: 400px;
+	}
 }
 
 /* lg <= Extra large (xl) */
@@ -12,6 +14,13 @@
 
 /* md <= Large (lg) */
 @media (max-width : 992px) {
+	.video-wrap{
+		height: 215px;
+	}
+	.video-wrap video{
+		height: 400px;
+		top: -80px;
+	}
 	header.active {
 		height: 100%;
 		overflow-y: scroll;
@@ -130,6 +139,31 @@
 	}
 	.h-widgets ul li{
 		margin-bottom: 24px;
+		margin-right: 0;
+		text-align: center;
+	}
+	.h-widgets ul li > .sub-menu li{
+		text-align: center;
+		width: 100%;
+	}
+	.h-widgets ul li > .sub-menu li a{
+		width: 100%;
+		text-align: center;
+		display: block;
+		font-size: 27px;
+	}
+	.h-widgets ul li.has-child > a{
+		padding-right: 0;
+	}
+	.h-widgets ul li.has-child:hover .sub-menu{
+		height: 100%;
+		margin-top: 15px;
+	}
+	.h-widgets ul li > .sub-menu{
+		position: relative;
+		height: 0;
+		transition: 0.2s ease all;
+		padding: 0;
 	}
 	.h-widgets ul li:last-child{
 		margin-bottom: 32px;
@@ -146,9 +180,12 @@
 		padding-bottom: 16px;
 		transform: translateX(-100%);
 		transition: 0.2s ease all;
+		padding-left: .625rem;
+		padding-right: .625rem;
 	}
 	.toggle-widget.active{
 		transform: translateX(0%);
+		padding-top: 50px;
 	}
 	.f-widget ul li a img{
 		display: none;
