@@ -1,0 +1,283 @@
+/* === DESKTOP FIRST === */
+
+/* xl <= Extra extra large (xxl) */
+@media (max-width : 1400px) {
+	.video-wrap{
+		height: 400px;
+	}
+}
+
+/* lg <= Extra large (xl) */
+@media (max-width : 1200px) {
+
+}
+
+/* md <= Large (lg) */
+@media (max-width : 992px) {
+	.video-wrap{
+		height: 215px;
+	}
+	.video-wrap video{
+		height: 400px;
+		top: -80px;
+	}
+	header.active {
+		height: 100%;
+		overflow-y: scroll;
+		z-index: 40;
+		}
+	.cart-btn span,.cart-btn div{
+		display: none;
+	}
+	section{
+		padding-bottom: 64px;
+	}
+	.section-title{
+		margin-bottom: 32px;
+	}
+	h1{
+		font-size: 32px;
+		line-height: 40px;
+	}
+	h2{
+		font-size: 24px;
+		line-height: 26px;
+	}
+	h3{
+		font-size: 20px;
+		line-height: 30px;
+	}
+	.success-title{
+		font-size: 20px;
+	}
+	.success-text{
+		margin: 0 0 32px 0;
+	}
+	.first-page{
+		padding:100px 0 32px 0;
+	}
+	.first-page h1{
+		margin-bottom: 32px;
+	}
+	.logo img{
+		width: 120px;
+	}
+	.h-widgets ul{
+		padding: 0;
+		flex-flow: column;
+	}
+	.section-wrap{
+		padding: 32px 16px;
+		border-radius: 16px;
+	}
+	.section-wrap h2{
+		font-size: 18px;
+	}
+	.section-wrap p{
+		margin: 12px 0 24px 0;
+	}
+	.product-category{
+		height: 280px;
+	}
+	footer{
+		padding: 32px 0;
+	}
+	.bottom{
+		padding: 24px 0;
+	}
+	.f-widgets{
+		flex-flow: column;
+	}
+	.f-widget{
+		margin-bottom: 24px;
+	}
+	.social{
+		margin-bottom: 18px;
+	}
+	.w-auto .main-btn{
+		width: auto;
+	}
+	.blog-post{
+		margin-bottom: 32px;
+	}
+	.blog-post img{
+		margin-bottom: 16px;
+		height: 240px;
+	}
+	.blog-post .blog-meta{
+		margin-bottom: 16px;
+	}
+	.blog-post p{
+		height: auto;
+		font-size: 16px;
+	}
+	.upgrade-card{
+		border-radius: 16px;
+		margin-bottom: 16px;
+		padding: 24px 16px;
+	}
+	.upgrade-card:last-child{
+		margin-bottom: 0;
+	}
+	.upgrade-card img{
+		margin-bottom: 24px;
+	}
+	.upgrade-card h3{
+		font-size: 18px;
+	}
+	.upgrade-card p{
+		margin-bottom: 16px;
+	}
+	header{
+		position: fixed;
+		width: 100%;
+		padding: 16px 0;
+	}
+	.h-widgets ul li > a{
+		font-size: 32px;
+		font-weight: 700;
+	}
+	.h-widgets ul li{
+		margin-bottom: 24px;
+		margin-right: 0;
+		text-align: center;
+	}
+	.h-widgets ul li > .sub-menu li{
+		text-align: center;
+		width: 100%;
+	}
+	.h-widgets ul li > .sub-menu li a{
+		width: 100%;
+		text-align: center;
+		display: block;
+		font-size: 27px;
+	}
+	.h-widgets ul li.has-child > a{
+		padding-right: 0;
+	}
+	.h-widgets ul li.has-child:hover .sub-menu{
+		height: 100%;
+		margin-top: 15px;
+	}
+	.h-widgets ul li > .sub-menu{
+		position: relative;
+		height: 0;
+		transition: 0.2s ease all;
+		padding: 0;
+	}
+	.h-widgets ul li:last-child{
+		margin-bottom: 32px;
+	}
+	.toggle-widget{
+		position: absolute;
+		left: 0;
+		z-index: 33;
+		background: #fff;
+		align-items: flex-start;
+		height: auto;
+		right: 0;
+		top: 71px;
+		padding-bottom: 16px;
+		transform: translateX(-100%);
+		transition: 0.2s ease all;
+		padding-left: .625rem;
+		padding-right: .625rem;
+	}
+	.toggle-widget.active{
+		transform: translateX(0%);
+		padding-top: 50px;
+	}
+	.f-widget ul li a img{
+		display: none;
+	}
+	.h-widgets ul li.has-child > a::after{
+		content: none;
+	}
+	.popup-wrap{
+		flex-flow: column;
+	}
+	.popup .contact-form{
+		padding: 20px;
+	}
+	.form-contact{
+		width: 100%;
+		padding: 20px;
+	}
+	.btn-close{
+		top: 20px;
+		right: 20px;
+	}
+	.form-bottom{
+		flex-flow: column;
+	}
+	.policy-form{
+		width: 100%;
+		margin-top: 0;
+		margin-bottom: 20px;
+	}
+	.service-card{
+		display: none;
+	}
+	.service-form{
+		width: 100%;
+		padding: 0 16px 16px 16px;
+	}
+	form h4{
+		margin-top: 34px;
+	}
+	.total-price-value{
+		font-size: 20px;
+	}
+}
+
+/* sm <= Medium (md) */
+@media (max-width : 768px) {
+	.main-btn{
+		width: 100%;
+	}
+	.next-form,.previous-form{
+		max-width: 154px;
+	}
+}
+
+/* xs <= Small (sm) */
+@media (max-width : 576px) {
+
+}
+
+
+/* === MOBILE FIRST === */
+
+/* Custom (xs) */
+@media (min-width : 0) {
+
+}
+
+/* Small (sm) */
+@media (min-width : 576px) {
+
+}
+
+/* Medium (md) */
+@media (min-width : 768px) {
+
+}
+
+/* Large (lg) */
+@media (min-width : 992px) {
+
+}
+
+/* Extra large (xl) */
+@media (min-width : 1200px) {
+	.text {
+		font-size: 18px;
+	}
+}
+
+/* Extra extra large (xxl) */
+@media (min-width : 1400px) {
+	.text {
+		font-size: 22px;
+	}
+}
