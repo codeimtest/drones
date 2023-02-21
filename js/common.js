@@ -1,18 +1,4 @@
-$("#service-form").submit(function(){
-		$.ajax({
-				type: "POST",
-				url: "//alldrones.ru/backend/api/service_request",
-				data: new FormData(this),
-				cache: false,
-				contentType: false,
-				processData: false,
-		}).done(function () {
-						console.log('Форма ушла')
-						//Тут включить последний Fieldset в форме с окном об успешной отправке
-				});
-				
-				return false;
-			});
+
 $('#check_nalog').on('click', function(){
 	$('.controls input:text, .controls select').attr('disabled', $(this).is(':checked'));       
 	$('.controls').toggleClass('disable_inputs')
@@ -24,6 +10,182 @@ $(document).mouseup(function (e) {
 
 	}
 });
+//get new select
+
+//API drones
+function getData(data) {
+  var productTitle = data.title;
+  var productPrice = data.price;
+  var productId = data.id;
+  return {
+    title: productTitle,
+    price: productPrice,
+    id: productId
+  };
+}
+//Get Drones
+$.getJSON("//alldrones.ru/backend/api/drones").done(function (data) {
+  var allProducts = data.data.map(function (item) {
+    return getData(item);
+  });
+
+  $.each(allProducts, function (index, item) {
+    var $block = $('<option>').attr('drone-id', item.id);
+    $block.append( item.title );
+    $('#get_drones').append($block);
+
+  });
+});
+
+$('.js-example-basic-single').change(function(){
+	var droneSelect = $(this).find('option:selected').attr('drone-id');
+	//Get services
+	$.getJSON("//alldrones.ru/backend/api/services/" + droneSelect, function(data) {
+		var select = $(".special-search");
+		select.empty();
+		$.each(data, function(index, category) {
+			var optgroup = $("<optgroup></optgroup>");
+			optgroup.attr("label", category.name);
+			$.each(category.services, function(index, service) {
+				var option = $("<option></option>");
+				option.attr("value", service.name);
+				option.attr("data-price", service.price);
+				option.attr("data-id", service.id);
+				option.text(service.name);
+				optgroup.append(option);
+			});
+			select.append(optgroup);
+		});
+	});
+	//Get parts
+	$.getJSON("//alldrones.ru/backend/api/parts/" + droneSelect, function(data) {
+  $('#parts').empty(); // очищаем элемент перед добавлением новых опций
+  var $empty = $('<option>Для этой модели не найдено запчастей</option>');
+  $.each(data, function (index, item) {
+    var $block1 = $('<option>').attr('part-id', item.id);
+    $block1.append(item.title);
+    $('#parts').append($block1);
+  });
+  // проверяем наличие опций
+  if ($('#parts').children().length === 0) {
+    $('#parts').append($empty);
+  }
+});
+});
+
+//End drones
+//API Services
+	
+//End services
+
+//Customize select tags
+function select2tags() {
+  var tags = [],
+    placeholder = 'Select an option';
+  
+  $(".special-search").each(function(i) {
+    $t = $(this).attr("data-select", i);
+
+    $t.select2({
+        id: -1,
+        placeholder: placeholder
+      })
+      .on("select2:select", function(e) {
+        var selected = {
+          value: e.params.data.text,
+          select: $(this).attr("data-select")
+        };
+        tags.push(selected);
+      
+        $(this).next().find('.select2-selection__custom').html(selected.value + ' (' + $(this).val().length + ')');
+
+        displayTags();
+      })
+      .on("select2:unselect", function(e) {
+        var selected = {
+          value: e.params.data.text,
+          select: $t.attr("data-select")
+        };
+
+        foundObj = findObjectByKey(tags, "value", selected.value);
+        indexToDelete = tags.indexOf(foundObj);
+        tags.splice(indexToDelete, 1);
+      
+        val = $(this).val()[0] == undefined ? placeholder : $(this).val()[0] + ' (' + $(this).val().length + ')'
+        $(this).next().find('.select2-selection__custom').html(val);
+
+        displayTags();
+      
+        setTimeout(function(){
+          $('.select2-dropdown').parent().remove();
+        }, 1);
+      });
+    
+    // Adding Fake Selection Placeholder
+    $('<div class="select2-selection__custom">' + placeholder + '</div>').appendTo($t.next().find('.select2-selection'));
+  });
+  
+  
+  // DELETE TAGS
+  $(".choisen-list").on("click", ".tag", function() {
+    var selected = {
+      value: $(this).find(".value").text(),
+      select: $(this).attr("data-select")
+    };
+    foundObj = findObjectByKey(tags, "value", selected.value);
+    indexToDelete = tags.indexOf(foundObj);
+    
+    tags.splice(indexToDelete, 1);
+
+    values = $('select[data-select="' + selected.select +'"]').val();
+    values.splice(values.indexOf(selected.value), 1);
+    
+    $('select[data-select="' + selected.select +'"]').val(values).trigger('change');
+    
+    val = values[0] == undefined ? placeholder : values[0] + ' (' + values.length + ')'
+    $('select[data-select="' + selected.select +'"]').next().find('.select2-selection__custom').html(val);
+    
+    $(this).parent().remove();
+
+    return false;
+  });
+  // DISPLAY TAGS
+  function displayTags() {
+    $(".choisen-list").html("");
+
+    for (i = 0; i < tags.length; i++) {
+      $('<li><a href="#" class="tag" data-select="' + tags[i].select + '"><span class="value select-choice-remove">' + tags[i].value + "</span><button class='select-choice-remove' type='button'></button></a></li>").appendTo($(".choisen-list"));
+    }
+  }
+  
+}
+
+function findObjectByKey(array, key, value) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i][key] === value) {
+      return array[i];
+    }
+  }
+  return null;
+}
+
+select2tags();
+
+$('.js-example-basic-single').select2({
+	minimumResultsForSearch: -1,
+});
+$(".special-search").select2({
+	tags: "false",
+  placeholder: "Например: замена лопастей",
+  allowClear: true,
+	minimumResultsForSearch: 1,
+	language: {
+    noResults: function () {
+      return "Ничего не найдено";
+    }
+  }
+});
+
 $('.toggle-button').click(function(){
 	$(this).toggleClass('active');
 	$('header').toggleClass('active');
