@@ -27,7 +27,13 @@
     left: 0;
 		width: 100%;
 }
+.select2-container--default .select2-results__option[aria-selected=true] {
 
+
+}
+.select2-results__option[role=group]::before{
+	content: none;
+}
 .select2-container .select2-selection--multiple{
 	min-height: 50px;
 	border: 1px solid #DDE1E6;
@@ -55,14 +61,57 @@
 	position: absolute;
 	left: 0;
 }
+.select2-container--default .select2-results__option .select2-results__option{
+	padding-left: 4px;
+}
 .select2-search__field{
 	width: 100% !important;
 	padding-left: 42px !important;
 }
 .select2-results__option--highlighted{
+	opacity: 0.8;
 cursor: pointer;
-background: #30aafc;
-color: #fff;
+transition: 0.2s ease all;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b{
+	margin-left: -16px;
+	position: relative;
+	border: none;
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b{
+	border: none;
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b::after{
+	transform: rotate(-180deg);
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b::after{
+	content: '\f107';
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 900;
+	position: absolute;
+}
+.select2-results__option {
+  padding-right: 20px;
+  vertical-align: middle;
+}
+.select2-results__option:before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.select2-results__option[aria-selected=true]:before {
+  font-family:fontAwesome;
+  content: "\f00c";
+  color: var(--accent);
+  border: 0;
+  display: inline-block;
+  padding-left: 3px;
 }
 /* BOOTSTRAP SETTINGS SECTION */
 
@@ -1055,5 +1104,32 @@ fieldset p{
 .service-form .logo{
 	padding: 16px 0 32px 0;
 	display: block;
+}
+.progress-bar {
+  position: relative;
+  width: 200px;
+  height: 20px;
+  background-color: #ddd;
+  border: 1px solid #999;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	background-color: var(--accent);
+	width: 0;
+	transition: width 0.3s ease-in-out;
+}
+#cancelBtn{
+	background: transparent;
+	border: none;
+	transition: 0.2s ease all;
+}
+#cancelBtn:hover{
+	opacity: 0.7;
 }
 /*services pages end*/

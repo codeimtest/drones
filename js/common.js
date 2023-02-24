@@ -1,44 +1,31 @@
-
-$('#check_nalog').on('click', function(){
-	$('.controls input:text, .controls select').attr('disabled', $(this).is(':checked'));       
-	$('.controls').toggleClass('disable_inputs')
-});
-$(document).mouseup(function (e) {
-	var container = $(".popup-dialog");
-	if (container.has(e.target).length === 0){
-			$('.popup').removeClass('active');
-
-	}
-});
-//get new select
-
 //API drones
 function getData(data) {
-  var productTitle = data.title;
-  var productPrice = data.price;
-  var productId = data.id;
-  return {
-    title: productTitle,
-    price: productPrice,
-    id: productId
-  };
-}
-//Get Drones
-$.getJSON("//alldrones.ru/backend/api/drones").done(function (data) {
-  var allProducts = data.data.map(function (item) {
-    return getData(item);
-  });
-
-  $.each(allProducts, function (index, item) {
-    var $block = $('<option>').attr('drone-id', item.id);
-    $block.append( item.title );
-    $('#get_drones').append($block);
-
-  });
-});
-
-$('.js-example-basic-single').change(function(){
+	var productTitle = data.title;
+	var productPrice = data.price;
+	var productId = data.id;
+	return {
+	title: productTitle,
+	price: productPrice,
+	id: productId
+	};
+	}
+	//Get Drones
+	$.getJSON("//alldrones.ru/backend/api/drones").done(function (data) {
+	var allProducts = data.data.map(function (item) {
+	return getData(item);
+	});
+	
+	$.each(allProducts, function (index, item) {
+	var $block = $('<option>').attr('drone-id', item.id);
+	$block.append( item.title );
+	$('#get_drones').append($block);
+	});
+	});
+	
+	$('#get_drones').change(function(){
 	var droneSelect = $(this).find('option:selected').attr('drone-id');
+	
+
 	//Get services
 	$.getJSON("//alldrones.ru/backend/api/services/" + droneSelect, function(data) {
 		var select = $(".special-search");
@@ -56,27 +43,65 @@ $('.js-example-basic-single').change(function(){
 			});
 			select.append(optgroup);
 		});
+		
+		// ADD price when change services
+		$('.special-search').change(function() {
+			var selectedOptions = $('.special-search option:selected');
+			var total = 0;
+			selectedOptions.each(function() {
+				var price = $(this).data('price');
+				total += price;
+			});
+			selectedOptions = $('#parts option:selected');
+			selectedOptions.each(function() {
+				var price = $(this).data('part-price');
+				total += price;
+			});
+			$('#total-price').val(total.toFixed(0)); 
+			$('.total-price-value span').text(total.toFixed(0));
+		});
 	});
+	
 	//Get parts
 	$.getJSON("//alldrones.ru/backend/api/parts/" + droneSelect, function(data) {
-  $('#parts').empty(); // очищаем элемент перед добавлением новых опций
-  var $empty = $('<option>Для этой модели не найдено запчастей</option>');
-  $.each(data, function (index, item) {
-    var $block1 = $('<option>').attr('part-id', item.id);
-    $block1.append(item.title);
-    $('#parts').append($block1);
-  });
-  // проверяем наличие опций
-  if ($('#parts').children().length === 0) {
-    $('#parts').append($empty);
-  }
-});
-});
+		$('#parts').empty(); // очищаем элемент перед добавлением новых опций
+		var $empty = $('<option disabled selected="selected">Для этой модели не найдено запчастей</option>');
+		var $po = $('<option disabled selected="selected">Выберите модель</option>');
+		$.each(data, function(index, item) {
+			var $block1 = $('<option>').attr('data-part-price', item.price);
+			$('#parts').append($block1);
+			$block1.append(item.title, ' ' + item.price + ' руб.');
+		});
+		
+		// ADD price when change parts
+		$('#parts').change(function() {
+			var selectedOptions = $('.special-search option:selected');
+			var total = 0;
+			selectedOptions.each(function() {
+				var price = $(this).data('price');
+				total += price;
+			});
+			selectedOptions = $('#parts option:selected');
+			selectedOptions.each(function() {
+				var price = $(this).data('part-price');
+				total += price;
+			});
+			$('#total-price').val(total.toFixed(0)); 
+			$('.total-price-value span').text(total.toFixed(0));
+		});
+	});
+	});
 
 //End drones
 //API Services
 	
 //End services
+$('.special-search').on('change', function(){
+	$(this).find('option').removeClass('added-to-multiple-select');
+	$(this).find('option:selected').addClass('added-to-multiple-select');
+	$('.select2-results__option').addClass('added-to-multiple-select')
+});
+
 
 //Customize select tags
 function select2tags() {
@@ -87,7 +112,7 @@ function select2tags() {
     $t = $(this).attr("data-select", i);
 
     $t.select2({
-        id: -1,
+        id: 1,
         placeholder: placeholder
       })
       .on("select2:select", function(e) {
@@ -116,11 +141,9 @@ function select2tags() {
 
         displayTags();
       
-        setTimeout(function(){
-          $('.select2-dropdown').parent().remove();
-        }, 1);
+        
       });
-    
+
     // Adding Fake Selection Placeholder
     $('<div class="select2-selection__custom">' + placeholder + '</div>').appendTo($t.next().find('.select2-selection'));
   });
@@ -171,21 +194,58 @@ function findObjectByKey(array, key, value) {
 
 select2tags();
 
+//remove services when switch drone
+$('#get_drones').change(function(){
+	$('.choisen-list').find('li a').click()
+})
+//init select
 $('.js-example-basic-single').select2({
 	minimumResultsForSearch: -1,
+});
+$('.js-example-basic-single-alt').select2({
+	tags: "false",
+	placeholder: "Например: нижняя часть корпуса",
+  allowClear: false,
+	minimumResultsForSearch: -1,
+	language: {
+    noResults: function () {
+      return "Ничего не найдено";
+    }
+  },
+	closeOnSelect: false,
 });
 $(".special-search").select2({
 	tags: "false",
   placeholder: "Например: замена лопастей",
-  allowClear: true,
+  allowClear: false,
 	minimumResultsForSearch: 1,
 	language: {
     noResults: function () {
       return "Ничего не найдено";
     }
-  }
+  },
+	closeOnSelect: false,
+});
+//init mask
+$('.phone-input').mask('+7 (999) 999-99-99').on('click', function () {
+	if ($(this).val() === '_ (___) ___-__-__') {
+			$(this).get(0).setSelectionRange(0, 0);
+	}
 });
 
+
+//other
+//Disable inputs if checkbox is check
+$('#check_nalog').on('click', function(){
+	$('.controls input:text, .controls select').attr('disabled', $(this).is(':checked'));       
+	$('.controls').toggleClass('disable_inputs')
+});
+$(document).mouseup(function (e) {
+	var container = $(".popup-dialog");
+	if (container.has(e.target).length === 0){
+			$('.popup').removeClass('active');
+	}
+});
 $('.toggle-button').click(function(){
 	$(this).toggleClass('active');
 	$('header').toggleClass('active');
@@ -268,11 +328,7 @@ function dropHandler(ev) {
     }
   }
 }
-$('#file_upload').change(function() {
-  var i = $(this).next('div').clone();
-  var file = $('#file_upload')[0].files[0].name;
-  $(this).next('div').text(file);
-});
+
 
 // only to show it did change
 $('#file-upload').on('change', function upload(evt) {
@@ -287,12 +343,49 @@ $('.upload-container label').on('dragenter', function() {
   this.classList.remove('dragged-over');
 });
 
+//progress bar
+var fileInput = $('#file_upload');
+var progressBar = $('#progressBar');
+var progress = progressBar.find('.progress');
+var cancelBtn = $('#cancelBtn');
+cancelBtn.hide();
+fileInput.on('change', function() {
+	var file = $(this)[0].files[0];
+	if (file) {
+		cancelBtn.show();
+		var reader = new FileReader();
+		reader.onloadstart = function() {
+			progress.width('0%');
+		};
+		reader.onprogress = function(event) {
+			var percentLoaded = Math.round((event.loaded / event.total) * 100);
+			progress.width(percentLoaded + '%');
+		};
+		reader.onload = function() {
+			progress.width('100%');
+			// Do something with the loaded data here
+			$('.upload-container label').text('Загружено');
+		};
+		reader.readAsDataURL(file);
+	}
+	var i = $(this).next('div').clone();
+  var file = $('#file_upload')[0].files[0].name;
+  $(this).next('div').next('div').text(file);
+});
+
+cancelBtn.on('click', function() {
+	fileInput.val('');
+	progress.width('0%');
+	cancelBtn.hide();
+	$('.upload-container label').html('<p>Перетащите файл сюда</p>Выберите на вашем устройстве');
+	$('#file_upload').next('div').next('div').text('');
+});
 
 //form switch steps
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
-
+var vi = $('.validate-input').val();
 $(".next-form").click(function(){
 	if(animating) return false;
 	animating = true;
@@ -300,8 +393,9 @@ $(".next-form").click(function(){
 	current_fs = $(this).parent().parent();
 	next_fs = $(this).parent().parent().next();
 	
-	
-	//show the next fieldset
+
+		$('.next-step').attr('disabled', false);
+		//show the next fieldset
 	next_fs.show(); 
 	//hide the current fieldset with style
 	current_fs.animate({opacity: 0}, {
@@ -325,6 +419,8 @@ $(".next-form").click(function(){
 			animating = false;
 		}, 
 	});
+	
+	
 });
 
 $(".previous-form").click(function(){

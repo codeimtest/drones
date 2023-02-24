@@ -27,6 +27,7 @@
 
 	<script src="libs/jquery/jquery-3.6.0.min.js" defer></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+	<script src="libs/input-mask/jquery.maskedinput.min.js" defer></script>
 	<script src="js/common.js" defer></script>
 
 </head>
@@ -53,16 +54,20 @@
 				<h4>Выберите устройство</h4>
 				<div class="form-float">
 					<div class="form-group">
-						<label for="get_drones">Бренд</label>
+						<label for="get_drones">Бренд\модель</label>
 						<div id="app"></div>
-						<select class="js-example-basic-single" id="get_drones" name="state"></select>
+						<select class="js-example-basic-single" id="get_drones" name="state">
+							<option selected="selected" disabled>Выберите бренд и модель дрона</option>
+						</select>
 
 					</div>
 					<div class="form-group">
 						<label for="parts">Запчасти</label>
-						<select name="" id="parts" class="js-example-basic-single">
-							<option>Для этой модели не найдено запчастей</option>
-						</select>
+							<div class="custom-input-icon">
+								<select name="parts" id="parts" class="js-example-basic-single-alt"  multiple="multiple" placeholder="Например: нижняя часть корпуса">
+									<option selected="selected" disabled>Выберите необходимые запчасти</option>
+								</select>
+							</div>
 					</div>
 				</div>
 				<div class="form-float">
@@ -76,43 +81,48 @@
 				<div class="form-float">
 					<div class="form-group">
 						<label for="choisen-service">Выбранные услуги</label>
-						<ul class="choisen-list">
-
-						</ul>
+						<ul class="choisen-list"></ul>
 					</div>
 				</div>
 				<h4>Дополнительная информация</h4>
+				<button id="cancelBtn" type="button"><i class="fa-solid fa-trash"></i> Убрать файл из загрузки</button>
 				<div class="upload-container">
 					<label for="file_upload">
 						<p>Перетащите файл сюда</p>
 						Выберите на вашем устройстве
 					</label>
-					<input type="file" id="file_upload" name="files[]" multiple/>
+					<input type="file" id="file_upload" name="files[]"/>
+					<div id="progressBar">
+						<div class="progress"></div>
+					</div>
 					<div></div>
+					
 				</div>
+				
 				<div class="form-float">
 					<div class="form-group">
 						<label for="comment">Дополнительный комментарий (необязательно)</label>
-						<textarea name="" id="comment" cols="30" rows="5"></textarea>
+						<textarea name="" class="validate-input" id="comment" cols="30" rows="5"></textarea>
 					</div>
 				</div>
 				<h4>Ваши контакты</h4>
 				<div class="form-float">
 					<div class="form-group">
 						<label for="phone">Телефон</label>
-						<input type="text" id="phone" name="contact_phone">
+						<input type="text" class="phone-input validate-input" id="phone" name="contact_phone" placeholder="+7(___) ___-____" >
 					</div>
 				</div>
 				<div class="form-float">
 					<div class="form-group">
 						<label for="mail">Почта</label>
-						<input type="email" id="mail" name="contact_mail">
+						<input type="email" id="mail" name="contact_mail" class="validate-input">
 					</div>
 				</div>
 				<div class="form-float prev-next-form">
 					<div class="total-price-service">
 						К оплате:
-						<div class="total-price-value">100 000<span> руб.</span></div>
+						<div class="total-price-value"><span>0</span> руб.</div>
+						<input type="hidden" name="price" id="total-price">
 					</div>
 					<button class="main-btn blue-btn next-form action-button" type="button">Продолжить</button>
 				</div>
