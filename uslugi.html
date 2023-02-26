@@ -56,7 +56,7 @@
 					<div class="form-group">
 						<label for="get_drones">Бренд\модель</label>
 						<div id="app"></div>
-						<select class="js-example-basic-single" id="get_drones" name="state">
+						<select class="js-example-basic-single input-validation" id="get_drones" name="state">
 							<option selected="selected" disabled>Выберите бренд и модель дрона</option>
 						</select>
 
@@ -64,7 +64,7 @@
 					<div class="form-group">
 						<label for="parts">Запчасти</label>
 							<div class="custom-input-icon">
-								<select name="parts" id="parts" class="js-example-basic-single-alt"  multiple="multiple" placeholder="Например: нижняя часть корпуса">
+								<select name="parts" id="parts" class="js-example-basic-single-alt input-validation"  multiple="multiple" placeholder="Например: нижняя часть корпуса">
 									<option selected="selected" disabled>Выберите необходимые запчасти</option>
 								</select>
 							</div>
@@ -74,7 +74,7 @@
 					<div class="form-group">
 						<label for="services">Выберите услуги</label>
 						<div class="custom-input-icon">
-							<select name="services" class="special-search" multiple="multiple" placeholder="Например: замена лопастей"></select>
+							<select name="services" class="special-search input-validation" id="services-list" multiple="multiple" placeholder="Например: замена лопастей"></select>
 						</div>
 					</div>
 				</div>
@@ -102,20 +102,20 @@
 				<div class="form-float">
 					<div class="form-group">
 						<label for="comment">Дополнительный комментарий (необязательно)</label>
-						<textarea name="" class="validate-input" id="comment" cols="30" rows="5"></textarea>
+						<textarea name="" id="comment" cols="30" rows="5"></textarea>
 					</div>
 				</div>
 				<h4>Ваши контакты</h4>
 				<div class="form-float">
 					<div class="form-group">
 						<label for="phone">Телефон</label>
-						<input type="text" class="phone-input validate-input" id="phone" name="contact_phone" placeholder="+7(___) ___-____" >
+						<input type="text" class="phone-input input-validation" id="phone" name="contact_phone" placeholder="+7(___) ___-____" >
 					</div>
 				</div>
 				<div class="form-float">
 					<div class="form-group">
 						<label for="mail">Почта</label>
-						<input type="email" id="mail" name="contact_mail" class="validate-input">
+						<input type="email" id="mail" name="contact_mail" class=" input-validation">
 					</div>
 				</div>
 				<div class="form-float prev-next-form">

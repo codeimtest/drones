@@ -381,21 +381,51 @@ cancelBtn.on('click', function() {
 	$('#file_upload').next('div').next('div').text('');
 });
 
-//form switch steps
+//form switch steps and validate
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
-var vi = $('.validate-input').val();
+$('fieldset .input-validation').each(function() {
+	$(this).after('<p class="error-message" style="color: red; display: none;"></p>');
+});
 $(".next-form").click(function(){
+	//validate
+	isFormValid = true;
+if (!isFormValid) {
+		
+	// Проверяем каждое поле ввода
+	$('fieldset .form-group').each(function() {
+		const inputField = $(this).find('.input-validation');
+		const errorField = $(this).find('.error-message');
+	
+		if (inputField && inputField.val().trimLeft() === '') {
+			errorField.text('Введите значение');
+			errorField.show();
+			isFormValid = false;
+		} else {
+			errorField.hide();
+		}
+	
+		const selectField = $(this).find('select.input-validation');
+		const selectedOption = selectField.find('option:selected');
+	
+		if (selectedOption.length === 0) {
+			errorField.text('Выберите позицию');
+			errorField.show();
+			isFormValid = false;
+		} else {
+			errorField.hide();
+		}
+	});
+} else {
 	if(animating) return false;
 	animating = true;
 	
 	current_fs = $(this).parent().parent();
 	next_fs = $(this).parent().parent().next();
 	
-
-		$('.next-step').attr('disabled', false);
-		//show the next fieldset
+	$('.next-step').attr('disabled', false);
+	//show the next fieldset
 	next_fs.show(); 
 	//hide the current fieldset with style
 	current_fs.animate({opacity: 0}, {
@@ -408,9 +438,9 @@ $(".next-form").click(function(){
 			//3. increase opacity of next_fs to 1 as it moves in
 			opacity = 1 - now;
 			current_fs.css({
-        'transform': 'scale('+scale+')',
+				'transform': 'scale('+scale+')',
 				/*        'position': 'absolute'*/
-      });
+			});
 			next_fs.css({'left': left, 'opacity': opacity});
 		}, 
 		duration: 300, 
@@ -419,10 +449,10 @@ $(".next-form").click(function(){
 			animating = false;
 		}, 
 	});
-	
-	
-});
 
+}
+});
+	
 $(".previous-form").click(function(){
 	if(animating) return false;
 	animating = true;
