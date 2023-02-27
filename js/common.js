@@ -389,36 +389,52 @@ $('fieldset .input-validation').each(function() {
 	$(this).after('<p class="error-message" style="color: red; display: none;"></p>');
 });
 $(".next-form").click(function(){
-	//validate
-	isFormValid = true;
-if (!isFormValid) {
-		
-	// Проверяем каждое поле ввода
-	$('fieldset .form-group').each(function() {
-		const inputField = $(this).find('.input-validation');
-		const errorField = $(this).find('.error-message');
-	
-		if (inputField && inputField.val().trimLeft() === '') {
-			errorField.text('Введите значение');
-			errorField.show();
-			isFormValid = false;
-		} else {
-			errorField.hide();
-		}
-	
-		const selectField = $(this).find('select.input-validation');
-		const selectedOption = selectField.find('option:selected');
-	
-		if (selectedOption.length === 0) {
-			errorField.text('Выберите позицию');
-			errorField.show();
-			isFormValid = false;
-		} else {
-			errorField.hide();
-		}
-	});
-} else {
-	if(animating) return false;
+
+	var value = $(this).val().trim();
+  var rules = $(this).data('rules');
+  
+  // Проверка правил
+  if (rules) {
+    var isValid = true;
+    var errorMessage = '';
+    
+    // Разделение правил на отдельные условия и проверка каждого условия
+    $.each(rules.split('|'), function(index, rule) {
+      var parts = rule.split(':');
+      var ruleName = parts[0];
+      var ruleValue = parts[1];
+      
+      switch (ruleName) {
+        case 'required':
+          if (value.length === 0) {
+            errorMessage = 'Это поле обязательно для заполнения';
+            isValid = false;
+          }
+          break;
+        case 'minlength':
+          if (value.length < ruleValue) {
+            errorMessage = 'Это поле должно содержать не менее ' + ruleValue + ' символов';
+            isValid = false;
+          }
+          break;
+        case 'email':
+          var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            errorMessage = 'Это поле должно содержать корректный адрес электронной почты';
+            isValid = false;
+          }
+          break;
+        // Добавление других правил в зависимости от необходимости
+      }
+      
+      // Если значение не соответствует правилам, добавление класса с ошибкой и вывод сообщения об ошибке
+      if (!isValid) {
+        $(this).removeClass('valid').addClass('invalid');
+        $(this).siblings('.error-message').text(errorMessage);
+      } else {
+        $(this).removeClass('invalid').addClass('valid');
+        $(this).siblings('.error-message').empty();
+				if(animating) return false;
 	animating = true;
 	
 	current_fs = $(this).parent().parent();
@@ -449,8 +465,11 @@ if (!isFormValid) {
 			animating = false;
 		}, 
 	});
+      }
+    });
+  }
 
-}
+	//validate
 });
 	
 $(".previous-form").click(function(){
