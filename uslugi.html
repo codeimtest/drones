@@ -39,7 +39,7 @@
 		<a href="/" class="logo">
 			<img src="images/logo-white.svg" alt="">
 		</a>
-		<h3 class="white-text">Создание договора на сервисные работы</h3>
+		<h3 class="white-text">Онлайн-заявка на заказ-наряд</h3>
 	</div>
 	<div class="service-form">
 		<div class="d-lg-none d-block">
@@ -47,7 +47,9 @@
 				<img src="images/logo.svg" alt="">
 			</a>
 		</div>
-		<form action="" id="service-form">
+		<form action="" id="service-form" enctype="multipart/form-data">
+
+
 			<fieldset>
 				<h3>Устройство и услуги</h3>
 				<div class="progress-line"></div>
@@ -55,8 +57,7 @@
 				<div class="form-float">
 					<div class="form-group">
 						<label for="get_drones">Бренд\модель</label>
-						<div id="app"></div>
-						<select class="js-example-basic-single input-validation" id="get_drones" name="state">
+						<select class="js-example-basic-single input-validation" id="get_drones" name="drone_id">
 							<option selected="selected" disabled>Выберите бренд и модель дрона</option>
 						</select>
 
@@ -102,7 +103,7 @@
 				<div class="form-float">
 					<div class="form-group">
 						<label for="comment">Дополнительный комментарий (необязательно)</label>
-						<textarea name="" id="comment" cols="30" rows="5"></textarea>
+						<textarea name="comment" id="comment" cols="30" rows="5"></textarea>
 					</div>
 				</div>
 				<h4>Ваши контакты</h4>
@@ -122,17 +123,20 @@
 					<div class="total-price-service">
 						К оплате:
 						<div class="total-price-value"><span>0</span> руб.</div>
-						<input type="hidden" name="price" id="total-price">
+						<input type="hidden" name="totalprice" id="total-price">
 					</div>
 					<button class="main-btn blue-btn next-form action-button" type="button">Продолжить</button>
 				</div>
 			</fieldset>
+	
+
 			<fieldset>
 				<h3>Данные клиента</h3>
 				<div class="progress-line"></div>
 				<div class="form-float form-tabs">
 					<div class="form-group">
-						<label for="mail">Тип клиента</label>
+						<label>Тип клиента</label>
+						<input type="hidden" name="client_type" id="clent_type" value="Физлицо">
 						<ul class="tab-group">
 							<li class="tab active"><a href="#individual">Физлицо</a></li>
 							<li class="tab"><a href="#legal">Юрлицо</a></li>
@@ -140,29 +144,19 @@
 					</div>
 				</div>
 				<div class="tab-content">
-					<div id="individual">
+					<div id="individual" class="active">
 						<h4>Данные физлица</h4>
 						<div class="form-float">
 							<div class="form-group">
-								<label for="secondname">Фамилия</label>
-								<input type="text" id="secondname" name="individual_surname">
-							</div>
-						</div>
-						<div class="form-float">
-							<div class="form-group">
-								<label for="firstname">Имя</label>
-								<input type="text" id="firstname" name="individual_firstname">
-							</div>
-							<div class="form-group">
-								<label for="otch">Отчество</label>
-								<input type="text" id="otch" name="individual_patronymic">
+								<label for="fio">ФИО</label>
+								<input type="text" id="fio" name="contact_name" class="input-validation">
 							</div>
 						</div>
 						<div class="form-float">
 							<div class="form-radio">
 								<label for="">Пол:</label>
 								<div class="radio">
-									<input type="radio" name="individual_gender" id="male" value="Мужской">
+									<input type="radio" name="individual_gender" id="male" value="Мужской" checked>
 									<label for="male">Мужской</label>
 								</div>
 								<div class="radio">
@@ -173,49 +167,29 @@
 						</div>
 						<div class="form-float">
 							<div class="form-group">
-								<label for="secondname">Инн</label>
-								<input type="text" id="individual_inn">
+								<label for="secondname">ИНН</label>
+								<input type="text" id="individual_inn" class="input-validation">
 							</div>
 						</div>
 						<div class="form-float special-form-float">
 							<label for="secondname">Паспортные данные</label>
 							<div class="form-triple">
 								<div class="form-group">
-									<input type="text" id="series" name="individual_passport_series" placeholder="Серия">
+									<input type="text" id="series" name="individual_passport_series" placeholder="Серия" class="input-validation">
 								</div>
 								<div class="form-group">
-									<input type="text" id="number" name="individual_passport_number" placeholder="Номер">
+									<input type="text" id="number" name="individual_passport_number" placeholder="Номер" class="input-validation">
 								</div>
 								<div class="form-group">
-									<input type="date" name="individual_passport_date">
+									<input type="text" name="individual_passport_date" placeholder="Дата выдачи" class="input-validation">
 								</div>
 							</div>
 						</div>
 						<h4>Адрес</h4>
 						<div class="form-float">
 							<div class="form-group">
-								<label for="city">Населенный пункт</label>
-								<input type="text" id="city" name="individual_address">
-							</div>
-						</div>
-						<div class="form-float">
-							<div class="form-group">
-								<label for="index">Индекс</label>
-								<input type="text" id="index" name="individual_index">
-							</div>
-							<div class="form-group">
-								<label for="street">Улица</label>
-								<input type="text" id="street" name="individual_street">
-							</div>
-						</div>
-						<div class="form-float">
-							<div class="form-group">
-								<label for="house">Дом</label>
-								<input type="text" id="house" name="individual_house">
-							</div>
-							<div class="form-group">
-								<label for="room">Квартира</label>
-								<input type="text" id="room" name="individual_flat">
+								<label for="address">Укажите фактический адрес проживания</label>
+								<input type="text" id="address" name="individual_address" class="input-validation">
 							</div>
 						</div>
 					</div>
@@ -224,7 +198,7 @@
 						<div class="form-float">
 							<div class="form-group">
 								<label for="legal-inn">ИНН</label>
-								<input type="text" id="legal-inn" name="company_inn">
+								<input type="text" id="legal-inn" name="company_inn"  class="input-validation">
 							</div>
 						</div>
 						<div class="form-float">
@@ -237,19 +211,29 @@
 							<div class="form-group controls">
 								<label for="type">Тип юрлица</label>
 								<select name="company_type" id="type">
-									<option value="Ип" selected>Ип</option>
+									<option selected disabled>Выберите тип юрлица</option>
+									<option value="Ип">ИП</option>
 									<option value="ООО">ООО</option>
+									<option value="ПАО">ПАО</option>
+									<option value="НАО">НАО</option>
+									<option value="АО">АО</option>
+									<option value="ЗАО">ЗАО</option>
+									<option value="НКО">НКО</option>
+									<option value="Полное товарищество">Полное товарищество</option>
+									<option value="Товарищество на вере">Товарищество на вере</option>
+									<option value="Хозяйственное партнерство">Хозяйственное партнерство</option>
+									<option value="Крестьянское (фермерское) хозяйство">Крестьянское (фермерское) хозяйство</option>
 								</select>
 							</div>
 							<div class="form-group controls">
 								<label for="ogrn">ОГРН</label>
-								<input type="text" id="ogrn" name="company_ogrn">
+								<input type="text" id="ogrn" name="company_ogrn"  class="input-validation">
 							</div>
 						</div>
 						<div class="form-float">
 							<div class="form-group controls">
 								<label for="customer">Наименование заказчика</label>
-								<input type="text" id="customer" name="company_customer_name">
+								<input type="text" id="customer" name="company_customer_name"  class="input-validation">
 							</div>
 						</div>
 						<div class="form-float">
@@ -262,26 +246,27 @@
 						<div class="form-float">
 							<div class="form-group controls">
 								<label for="bik">БИК</label>
-								<input type="text" id="bik" name="company_bik">
+								<input type="text" id="bik" name="company_bik"  class="input-validation">
 							</div>
 						</div>
 						<div class="form-float">
 							<div class="form-group controls">
 								<label for="company-name">Название</label>
-								<input type="text" id="company-name" name="company_name">
+								<input type="text" id="company-name" name="company_name"  class="input-validation">
 							</div>
 						</div>
 						<div class="form-float">
 							<div class="form-group controls">
 								<label for="ras-schet">Р/c</label>
-								<input type="text" id="ras-schet" name="company_rs">
+								<input type="text" id="ras-schet" name="company_rs"  class="input-validation">
 							</div>
 							<div class="form-group controls">
 								<label for="kor-schet">Кор счет</label>
-								<input type="text" id="kor-schet" name="company_ks">
+								<input type="text" id="kor-schet" name="company_ks"  class="input-validation">
 							</div>
 						</div>
-						<h4>Представитель заказчика по договору</h4>
+						<div class="input-hidden">
+							<h4>Представитель заказчика по договору</h4>
 						<div class="form-float">
 							<div class="form-group controls">
 								<label for="company-family">Фамилия</label>
@@ -321,46 +306,47 @@
 							<div class="form-group controls">
 								<label for="podpis">Основание для подписи документа</label>
 								<select name="company_head_operates" id="podpis">
-									<option value="Устав" selected>Устав</option>
+									<option disabled selected>Выберите основание</option>
+									<option value="Устав">Устав</option>
 									<option value="Доверенность">Доверенность</option>
 								</select>
 							</div>
+						</div>
 						</div>
 					</div>
 				</div>
 				<div class="form-float prev-next-form">
 					<button class="main-btn previous-form action-button" type="button">Вернуться</button>
-					<button class="main-btn blue-btn next-form action-button" type="button">Продолжить</button>
+					<button class="main-btn blue-btn next-form action-button check-fio" type="button">Продолжить</button>
 				</div>
 			</fieldset>
 			<fieldset>
 				<h3>Проверьте данные для договора</h3>
-				<p>Проверьте правильность заполненых данных для состовления договора и внесите изменения, если потребуется.</p>
+				<p>Проверьте правильность заполненых данных для составления договора и внесите изменения, если потребуется.</p>
 				<div class="progress-line"></div>
 				<div class="form-float">
 					<div class="form-group">
 						<label for="check-fio">Должность и ФИО в родительном падеже</label>
-						<input type="text" id="check-fio" placeholder="директора Султанова Ленардо Ильдаровича">
+						<input type="text" id="check-fio" name="position_and_fio_in_genitive" placeholder="директора Султанова Ленардо Ильдаровича">
 					</div>
 				</div>
 				<div class="form-float">
 					<div class="form-group">
-						<label for="check-inic">Инициалы в иминительном падеже</label>
-						<input type="text" id="check-inic" placeholder="Л.И. Султанов">
+						<label for="check-inic">Инициалы в именительном падеже</label>
+						<input type="text" id="check-inic" name="initials_in_nominative" placeholder="Л.И. Султанов">
 					</div>
 				</div>
 				<div class="form-float prev-next-form">
 					<button class="main-btn previous-form action-button" type="button">Вернуться</button>
 
 					<button type="submit" class="main-btn blue-btn">Продолжить</button>
-					<!-- Кнопка выше для отправки формы(но в верстке просто перейдет на след шаг - "Заявка успешно отправлена") -->
 				</div>
 			</fieldset>
 			<fieldset class="text-center">
 				<img src="images/success-form.png" alt="">
-				<h3 class="success-title">Проверьте свою почту</h3>
-				<div class="success-text">Мы отправили вам договор на оплату. Не забудьте проверить спам</div>
-				<a href="/" class="main-btn">Вернуться на сайт</a>
+				<h3 class="success-title">Документы на почте</h3>
+				<div class="success-text"> Ваша заявка успешно создана. Мы отправили документы на указанную вами почту. не забудьте проверить спам.</div>
+				<a href="https://alldrones.ru/services/ " class="main-btn">Вернуться на сайт</a>
 			</fieldset>
 		</form>
 	</div>

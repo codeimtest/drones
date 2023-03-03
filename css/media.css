@@ -5,6 +5,9 @@
 	.video-wrap{
 		height: 400px;
 	}
+	.form-triple .form-group:not(:first-child) .error-message{
+		display: none;
+	}
 }
 
 /* lg <= Extra large (xl) */
@@ -14,6 +17,7 @@
 
 /* md <= Large (lg) */
 @media (max-width : 992px) {
+
 	.video-wrap{
 		height: 215px;
 	}

@@ -1132,4 +1132,10 @@ fieldset p{
 #cancelBtn:hover{
 	opacity: 0.7;
 }
+.error-message {
+	position: absolute;
+	color: #ff5252;
+	font-size: 11px;
+}
+.input-hidden{display: none;}
 /*services pages end*/

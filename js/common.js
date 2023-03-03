@@ -9,6 +9,34 @@ function getData(data) {
 	id: productId
 	};
 	}
+	//get fio
+/*
+	$('.check-fio').click(function(e){
+		e.preventDefault(); // Отменяем стандартное поведение отправки формы
+
+    // Получаем данные из input
+    var inputValue = $("#my-input").val();
+
+    // Отправляем AJAX запрос
+    $.ajax({
+      url: "http://alldrones.ru/backend/api/declension",
+      method: "POST",
+      data: {
+        individual_surname: inputValue
+      },
+      success: function(response) {
+        // Обрабатываем ответ сервера в случае успеха
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        // Обрабатываем ошибки при отправке запроса
+        console.error(error);
+      }
+    });
+
+	})
+*/
+
 	//Get Drones
 	$.getJSON("//alldrones.ru/backend/api/drones").done(function (data) {
 	var allProducts = data.data.map(function (item) {
@@ -16,7 +44,7 @@ function getData(data) {
 	});
 	
 	$.each(allProducts, function (index, item) {
-	var $block = $('<option>').attr('drone-id', item.id);
+	var $block = $('<option>').attr('drone-id', item.id).attr('value', item.id);
 	$block.append( item.title );
 	$('#get_drones').append($block);
 	});
@@ -68,7 +96,7 @@ function getData(data) {
 		var $empty = $('<option disabled selected="selected">Для этой модели не найдено запчастей</option>');
 		var $po = $('<option disabled selected="selected">Выберите модель</option>');
 		$.each(data, function(index, item) {
-			var $block1 = $('<option>').attr('data-part-price', item.price);
+			var $block1 = $('<option>').attr('data-part-price', item.price).attr('value', item.id);
 			$('#parts').append($block1);
 			$block1.append(item.title, ' ' + item.price + ' руб.');
 		});
@@ -102,6 +130,114 @@ $('.special-search').on('change', function(){
 	$('.select2-results__option').addClass('added-to-multiple-select')
 });
 
+//form switch steps and validate
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+var dr = $('#get_drones').val();
+var prts = $('#parts').val();
+var srvs = $('#services-list').val();
+
+$('fieldset .next-form').each(function(){
+	$(this).click(function(event){
+		// Предотвратить стандартное поведение отправки формы
+		event.preventDefault();
+
+		// Получить текущий .tab-content .active
+		var activeTabContent = $(this).parents('fieldset').find('.tab-content .active');
+		
+		// Получить значения полей формы
+		var input;
+		if (activeTabContent.length) {
+			input = activeTabContent.find('.input-validation');
+		} else {
+			input = $(this).parent().parent().find('.input-validation');
+		}
+
+		var isvalid = true;
+
+		input.each(function() {
+			if ($(this).val() === '' || ($(this).val() == null) || ($(this).val() == 0)) {
+				$(this).parent().append('<p class="error-message">Поле обязательно к заполнению</p>');
+				isvalid = false;
+			} else {
+				$(this).parent().find('.error-message').remove();
+			}
+		});
+		
+		if (isvalid) {
+			if (animating) return false;
+			animating = true;
+			
+			current_fs = $(this).parent().parent();
+			next_fs = $(this).parent().parent().next();
+			
+			$('.next-step').attr('disabled', false);
+			//show the next fieldset
+			next_fs.show();
+			//hide the current fieldset with style
+			current_fs.animate({
+				opacity: 0
+			}, {
+				step: function(now, mx) {
+					//as the opacity of current_fs reduces to 0 - stored in "now"
+					//1. scale current_fs down to 80%
+					scale = 1 - (1 - now) * 0.2;
+					//2. bring next_fs from the right(50%)
+					left = (now * 50) + "%";
+					//3. increase opacity of next_fs to 1 as it moves in
+					opacity = 1 - now;
+					current_fs.css({
+						'transform': 'scale(' + scale + ')',
+						/*        'position': 'absolute'*/
+					});
+					next_fs.css({
+						'left': left,
+						'opacity': opacity
+					});
+				},
+				duration: 300,
+				complete: function() {
+					current_fs.hide();
+					animating = false;
+				},
+			});
+		}
+	})
+})
+
+	
+$(".previous-form").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent().parent();
+	previous_fs = $(this).parent().parent().prev();
+	
+	
+	//show the previous fieldset
+	previous_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale previous_fs from 80% to 100%
+			scale = 0.8 + (1 - now) * 0.2;
+			//2. take current_fs to the right(50%) - from 0%
+			left = ((1-now) * 50)+"%";
+			//3. increase opacity of previous_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({'left': left});
+			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+		}, 
+		duration: 300, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+
+	});
+});
 
 //Customize select tags
 function select2tags() {
@@ -237,9 +373,18 @@ $('.phone-input').mask('+7 (999) 999-99-99').on('click', function () {
 //other
 //Disable inputs if checkbox is check
 $('#check_nalog').on('click', function(){
-	$('.controls input:text, .controls select').attr('disabled', $(this).is(':checked'));       
+	$('.controls input:text, .controls select').attr('disabled', $(this).is(':checked'));
 	$('.controls').toggleClass('disable_inputs')
 });
+$('#type').change(function(){
+	var companytype = $(this).val();
+	if(companytype == 'Ип'){
+		$('.input-hidden').hide();
+		$('.input-hidden').find('input').val("");
+	} else {
+		$('.input-hidden').show();
+	}
+})
 $(document).mouseup(function (e) {
 	var container = $(".popup-dialog");
 	if (container.has(e.target).length === 0){
@@ -381,128 +526,7 @@ cancelBtn.on('click', function() {
 	$('#file_upload').next('div').next('div').text('');
 });
 
-//form switch steps and validate
-var current_fs, next_fs, previous_fs; //fieldsets
-var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
-$('fieldset .input-validation').each(function() {
-	$(this).after('<p class="error-message" style="color: red; display: none;"></p>');
-});
-$(".next-form").click(function(){
 
-	var value = $(this).val().trim();
-  var rules = $(this).data('rules');
-  
-  // Проверка правил
-  if (rules) {
-    var isValid = true;
-    var errorMessage = '';
-    
-    // Разделение правил на отдельные условия и проверка каждого условия
-    $.each(rules.split('|'), function(index, rule) {
-      var parts = rule.split(':');
-      var ruleName = parts[0];
-      var ruleValue = parts[1];
-      
-      switch (ruleName) {
-        case 'required':
-          if (value.length === 0) {
-            errorMessage = 'Это поле обязательно для заполнения';
-            isValid = false;
-          }
-          break;
-        case 'minlength':
-          if (value.length < ruleValue) {
-            errorMessage = 'Это поле должно содержать не менее ' + ruleValue + ' символов';
-            isValid = false;
-          }
-          break;
-        case 'email':
-          var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(value)) {
-            errorMessage = 'Это поле должно содержать корректный адрес электронной почты';
-            isValid = false;
-          }
-          break;
-        // Добавление других правил в зависимости от необходимости
-      }
-      
-      // Если значение не соответствует правилам, добавление класса с ошибкой и вывод сообщения об ошибке
-      if (!isValid) {
-        $(this).removeClass('valid').addClass('invalid');
-        $(this).siblings('.error-message').text(errorMessage);
-      } else {
-        $(this).removeClass('invalid').addClass('valid');
-        $(this).siblings('.error-message').empty();
-				if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent().parent();
-	next_fs = $(this).parent().parent().next();
-	
-	$('.next-step').attr('disabled', false);
-	//show the next fieldset
-	next_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale current_fs down to 80%
-			scale = 1 - (1 - now) * 0.2;
-			//2. bring next_fs from the right(50%)
-			left = (now * 50)+"%";
-			//3. increase opacity of next_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({
-				'transform': 'scale('+scale+')',
-				/*        'position': 'absolute'*/
-			});
-			next_fs.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 300, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-	});
-      }
-    });
-  }
-
-	//validate
-});
-	
-$(".previous-form").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent().parent();
-	previous_fs = $(this).parent().parent().prev();
-	
-	
-	//show the previous fieldset
-	previous_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale previous_fs from 80% to 100%
-			scale = 0.8 + (1 - now) * 0.2;
-			//2. take current_fs to the right(50%) - from 0%
-			left = ((1-now) * 50)+"%";
-			//3. increase opacity of previous_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
-		}, 
-		duration: 300, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-
-	});
-});
 
 $('.tab a').on('click', function (e) {
   
@@ -512,11 +536,16 @@ $('.tab a').on('click', function (e) {
   $(this).parent().siblings().removeClass('active');
   
   target = $(this).attr('href');
-
+	targettext = $(this).text();
+	$('#clent_type').val(targettext)
   $('.tab-content > div').not(target).hide();
-  
+	$('.tab-content > div').addClass('active');
+	$('.tab-content > div').not(target).toggleClass('active');
+	$('.tab-content .active').find("input").val("")
   $(target).fadeIn(600);
-  
+  $(this).closest('form').find('#type,#podpis').each(function() {
+    $(this).prop('selectedIndex', 0); // сбросить выбранный option на первый по умолчанию
+  });
 });
 
 $('.action-button').click(function () {
@@ -525,3 +554,25 @@ $('.action-button').click(function () {
 	});
 	return false;
 });
+$('form').submit(function(event) {
+    // Отменяем стандартное поведение формы
+    event.preventDefault();
+    
+    // Собираем данные формы
+    
+    // Отправляем данные на API
+    $.ajax({
+      type: 'POST',
+      url: 'http://alldrones.ru/backend/api/service_request',
+      data: new FormData(this),
+			cache: false,
+			contentType: false,
+			processData: false,
+      success: function(response) {
+        console.log('Успешно отправлено:', response);
+      },
+      error: function(form_data) {
+        console.log('Ошибка отправки:', form_data);
+      }
+    });
+  });
